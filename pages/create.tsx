@@ -6,6 +6,7 @@ const CreateRecipe: React.FC = () => {
   const [title, setTitle] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [instructions, setInstructions] = useState('')
+  const [category, setCategory] = useState('') // New state for category
   const [scannedRecipe, setScannedRecipe] = useState<File | null>(null)
   const router = useRouter()
 
@@ -25,6 +26,7 @@ const CreateRecipe: React.FC = () => {
           title,
           ingredients,
           instructions,
+          category, // Include category in the request body
           scannedRecipeUrl,
         }),
       })
@@ -59,6 +61,22 @@ const CreateRecipe: React.FC = () => {
             required
             className={styles.input}
           />
+        </div>
+        <div className={styles.formGroup}>
+          <label htmlFor="category">Category:</label>
+          <select
+            id="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+            className={styles.select}
+          >
+            <option value="">Select a category</option>
+            <option value="Dessert">Dessert</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Quick lunch">Quick lunch</option>
+            <option value="Fine dining">Fine dining</option>
+          </select>
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="ingredients">Ingredients:</label>
