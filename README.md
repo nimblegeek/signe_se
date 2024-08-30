@@ -1,4 +1,9 @@
-Welcome to the NextJS base template bootstrapped using the `create-next-app`. This template supports TypeScript, but you can use normal JavaScript as well.
+# Signe
+Web app to explore and create online recipes's.
+
+## Upload handwritten recipes
+
+## 
 
 ## Getting Started
 
