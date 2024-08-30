@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 
 const CreateRecipe: React.FC = () => {
   const [title, setTitle] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [instructions, setInstructions] = useState('')
+  const [scannedRecipe, setScannedRecipe] = useState<File | null>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Add logic to save the recipe
-    console.log({ title, ingredients, instructions })
+    // Add logic to save the recipe and handle the scanned file
+    console.log({ title, ingredients, instructions, scannedRecipe })
+  }
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setScannedRecipe(e.target.files[0])
+    }
   }
 
   return (
@@ -41,6 +48,15 @@ const CreateRecipe: React.FC = () => {
             value={instructions}
             onChange={(e) => setInstructions(e.target.value)}
             required
+          />
+        </div>
+        <div>
+          <label htmlFor="scannedRecipe">Upload Scanned Recipe:</label>
+          <input
+            type="file"
+            id="scannedRecipe"
+            accept="image/*"
+            onChange={handleFileChange}
           />
         </div>
         <button type="submit">Create Recipe</button>
