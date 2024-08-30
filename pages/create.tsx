@@ -1,16 +1,42 @@
 import React, { useState, ChangeEvent } from 'react'
 import styles from '../styles/CreateRecipe.module.css'
+import { useRouter } from 'next/router'
 
 const CreateRecipe: React.FC = () => {
   const [title, setTitle] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [instructions, setInstructions] = useState('')
   const [scannedRecipe, setScannedRecipe] = useState<File | null>(null)
+  const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Add logic to save the recipe and handle the scanned file
-    console.log({ title, ingredients, instructions, scannedRecipe })
+    
+    // TODO: Implement file upload logic and get the URL
+    const scannedRecipeUrl = ''
+
+    try {
+      const response = await fetch('/api/recipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          ingredients,
+          instructions,
+          scannedRecipeUrl,
+        }),
+      })
+
+      if (response.ok) {
+        router.push('/recipes') // Redirect to the recipes list page
+      } else {
+        console.error('Failed to create recipe')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
